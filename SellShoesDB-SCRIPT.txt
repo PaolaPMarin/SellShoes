@@ -1,0 +1,164 @@
+CREATE DATABASE SellShoes;
+USE SellShoes;
+
+CREATE TABLE Rol (
+	cod_rol INT NOT NULL PRIMARY KEY,
+	nombre_rol VARCHAR(20) NOT NULL
+);
+
+CREATE TABLE Usuario (
+	id_usuario VARCHAR(20) NOT NULL PRIMARY KEY,
+	nombre VARCHAR(100) NOT NULL,
+	direcion VARCHAR(200) NOT NULL,
+	telefono VARCHAR(20),
+	email VARCHAR(50),
+	nom_usuario VARCHAR(20),
+	password VARCHAR(20),	
+	cod_rol INT NOT NULL,
+	FOREIGN KEY (cod_rol) REFERENCES Rol(cod_rol)
+);
+
+CREATE TABLE Talla (
+	cod_talla INT NOT NULL PRIMARY KEY,
+	talla VARCHAR(4)
+);
+
+
+CREATE TABLE Producto (
+	cod_producto VARCHAR(20) NOT NULL PRIMARY KEY,
+	descripcion VARCHAR(100) NOT NULL,
+	precio FLOAT,
+	ruta_imagen VARCHAR(300)
+);
+
+CREATE TABLE Producto_Talla (
+	cod_producto VARCHAR(20) NOT NULL,
+	cod_talla INT NOT NULL,
+	cantidad INT,
+	PRIMARY KEY (cod_producto, cod_talla)
+);
+
+CREATE TABLE Pedido (
+	numero_pedido INT NOT NULL PRIMARY KEY,
+	fecha DATE NOT NULL,
+	id_usuario VARCHAR(20) NOT NULL,
+	precio_total FLOAT,
+	FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario)
+);
+
+CREATE TABLE Pedido_Producto (
+	numero_pedido INT NOT NULL,
+	cod_producto VARCHAR(20) NOT NULL UNIQUE,
+	cantidad INT NOT NULL,
+	subtotal FLOAT NOT NULL,
+	PRIMARY KEY(numero_pedido, cod_producto)
+);
+#----------------------------------------------------------------
+#------- POBLAR DB ----------------------------------------------
+#----------------------------------------------------------------
+INSERT INTO Rol (cod_rol, nombre_rol)
+	VALUES 
+	(1, "Administrador"),
+	(2, "Comprador")
+;
+
+INSERT INTO Usuario (id_usuario, nombre, direcion, telefono, email, nom_usuario, password, cod_rol)
+	VALUES
+	("55648237", "Sergio Medina", "Kra 25 #39A-92 Bogotá, Colombia", "3158547965", "sergio.medina@mail.com", "SergioM", "admin2021", 1),
+	("88596403", "Pablo Pérez", "Carrera 45 # 26-85 Bogotá, Colombia", "3216291847", "pabloP@mail.com", "PabloPerez21M", "miPass1984", 2),
+	("90345917", "Andrés Moreno", "Costado Occidental, Autopista Nte. #45 - 03, Suba, Bogotá", "3201243573", "andresmoreno@mimail.com", "unUsuario", "miContrasenia", 2),
+	("37918246", "Carlos Lara", "Cra. 11 ##82-71, Bogotá, Cundinamarca", "3229867532", "carlos.lara@mail.com", "Clara", "CLARA", 1),
+	("93827131", "Mauricio Prieto", "Transversal 99 #70A - 89 Alamos, Engativá, Cundinamarca, Colombia.", "3117841592", "prietoMauricio@unmail.com", "Prietas", "12345", 2),
+	("17283997", "John Rodríguez", "Calle 78 # 9 - 57 P9 Bogotá, Colombia", "3109867354", "jjrodriguez@mail.com", "jj", "ventas21", 2),
+	("46137982", "Hector Camacho", "Carrera 72 # 62 A - 37 Sur Bogotá, Colombia", "3201472583", "hector.camacho@mail.com", "Hector", "camacho1990", 2)
+;
+
+INSERT INTO Talla (cod_talla, talla)
+	VALUES
+	(1, "36"),
+	(2, "36,5"),
+	(3, "37"),
+	(4, "37,5"),
+	(5, "38"),
+	(6, "39"),
+	(7, "40"),
+	(8, "41"),
+	(9, "41,5"),
+	(10, "42"),
+	(11, "42,5"),
+	(12, "43"),
+	(13, "43,5"),
+	(14, "44")
+;
+
+INSERT INTO Producto (cod_producto, descripcion, precio)
+	VALUES
+	("10001", "Bota PVC", 60.000),
+	("10002", "Bota Seguridad PVC", 100.000),
+	("10003", "Bota Seguridad Dieléctrica", 130.000),
+	("10004", "Bota Seguridad Dieléctrica, Punta de acero", 145.000),
+	("10005", "Bota estilo industrial", 120.000),
+	("10006", "Bota Seguridad Dieléctrica en cuero", 190.000),
+	("10007", "Bota Seguridad tipo tenis", 290.000),
+	("10008", "Bota Seguridad punta plástica", 135.000)
+;
+
+INSERT INTO Producto_Talla (cod_producto, cod_talla, cantidad)
+	VALUES
+	("10001", 1, 60),
+	("10002", 2, 30),
+	("10003", 3, 30),
+	("10004", 4, 30),
+	("10008", 5, 35),
+	("10007", 6, 40),
+	("10006", 7, 50),
+	("10005", 8, 40),
+	("10004", 9, 30),
+	("10003", 10, 60),
+	("10002", 11, 60),
+	("10001", 12, 3),
+	("10005", 13, 21),
+	("10006", 14, 10),
+	("10008", 1, 60),
+	("10001", 2, 30),
+	("10007", 3, 30),
+	("10002", 4, 30),
+	("10003", 5, 35),
+	("10006", 6, 40),
+	("10004", 7, 50),
+	("10009", 8, 40),
+	("10005", 9, 30),
+	("10006", 10, 60),
+	("10007", 11, 60),
+	("10008", 12, 3),
+	("10008", 13, 21),
+	("10001", 14, 10),	
+	("10002", 1, 60),
+	("10005", 2, 30),
+	("10005", 3, 30),
+	("10005", 4, 30),
+	("10005", 5, 35),
+	("10009", 6, 40),
+	("10005", 7, 50),
+	("10001", 8, 40),
+	("10008", 9, 30),
+	("10009", 10, 60),
+	("10008", 11, 60),
+	("10005", 12, 3),
+	("10002", 13, 21),
+	("10002", 14, 10)
+;
+
+INSERT INTO Pedido (numero_pedido, fecha, id_usuario, precio_total)
+	VALUES 
+	(1, "2021-11-10", "88596403", 275000),
+	(2, "2021-11-15", "46137982", 155.000)
+;
+
+INSERT INTO Pedido_Producto (numero_pedido, cod_producto, cantidad, subtotal)
+	VALUES
+	(1, "10003", 1, 130.000),
+	(1, "10004", 1, 145.000),
+	(2, "10001", 2, 120.000),
+	(2, "10008", 1, 135.000)
+;

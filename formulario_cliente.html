@@ -1,0 +1,37 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/formulario_cliente.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+    <div class="form_top">
+        <h2>Creación de cliente <span> Registro</span></h2>
+    </div>
+    <form class="form_cliente" action="">
+        <input class="input" type="text" placeholder="&#128100; Nombre cliente" required autofocus>
+        <input class="input" type="email" placeholder="&#9993; Email del cliente" required >
+        <input class="input" type="tel" placeholder="&#128222; Telefono" required>
+        <input class="input" type="number" placeholder="&#127380; NIT" required maxlength="10">
+        <h3>Calificacion del cliente</h3>
+        <select name="calificacion_cliente">
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+            <option>D</option>
+        </select>
+        <input class="input" type="text" placeholder="&#8962; Dirección de facturación" required>
+        <div class="btn_form">
+            <input class="btn_submit" type="submit" value="Registrar cliente">
+            <input class="btn_reset" type="reset" value="Cancelar" onclick="location.href='login.html'">
+        </div>
+    </form>
+    </div>
+    
+
+    
+</body>
+</html>
